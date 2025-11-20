@@ -1,4 +1,4 @@
-FROM node:20.16.0-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
@@ -12,11 +12,11 @@ ENV SERVICE_PORT=${SERVICE_PORT}
 
 COPY package*.json ./
 COPY . .
-RUN yarn install
+RUN npm ci || npm install
 
-RUN yarn build
+RUN npm run build
 
 EXPOSE $SERVICE_PORT
 
 # Start the application
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
