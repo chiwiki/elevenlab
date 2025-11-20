@@ -1,0 +1,19 @@
+services:
+  elevenlabs-demo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - SERVICE_PORT=${SERVICE_PORT}
+        - AGENT_ID=${AGENT_ID}
+        - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+    container_name: elevenlabs-demo
+    expose:
+      - "${SERVICE_PORT}"
+    ports:
+      - ${SERVICE_PORT}:${SERVICE_PORT}
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    restart: always

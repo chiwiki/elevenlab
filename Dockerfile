@@ -1,0 +1,23 @@
+FROM node:20.16.0-alpine
+
+WORKDIR /app
+
+ARG AGENT_ID
+ARG ELEVENLABS_API_KEY
+ARG SERVICE_PORT=3000
+
+ENV AGENT_ID=${AGENT_ID}
+ENV ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+ENV SERVICE_PORT=${SERVICE_PORT}
+# RUN echo "Based on commit: $NEXT_PUBLIC_BASE_API_URL"
+
+COPY package*.json ./
+COPY . .
+RUN yarn install
+
+RUN yarn build
+
+EXPOSE $SERVICE_PORT
+
+# Start the application
+CMD ["yarn", "start"]
